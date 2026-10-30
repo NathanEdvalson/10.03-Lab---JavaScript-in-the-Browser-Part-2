@@ -15,8 +15,8 @@ function domLoaded() {
 // Function to get text upon button click
 function addBtnClick() {
     // Extract the text entered in the textbox
-    const taskInput = document.getElementById("taskInput"); 
-    const taskText = taskInput.value;
+    const taskInput = document.getElementById("taskInput");
+    const taskText = taskInput.value.trim();
 
     // Prevent empty tasks
     if (taskText === "") {
@@ -29,15 +29,17 @@ function addBtnClick() {
 }
 
 // Function to add item to custom list.
-function addTask(newTask) {  
+function addTask(newTask) {
     const itemList = document.getElementById('itemList');
     const itemInput = document.getElementById('taskInput');
-    
+
     // Create a new <li> element
     const newLi = document.createElement('li');
 
-    // Set new <li> element html
-    newLi.innerHTML = `<span class="task-text">${newTask}</span><button class="done-btn">✖</button>`;
+    // Create the task text span
+    const taskSpan = document.createElement('span');
+    taskSpan.className = 'task-text';
+    taskSpan.textContent = newTask;
 
     // Create done button
     const doneButton = document.createElement('button');
@@ -51,6 +53,9 @@ function addTask(newTask) {
     newLi.appendChild(taskSpan);
     newLi.appendChild(doneButton);
 
+    // Add the <li> to the ordered list
+    itemList.appendChild(newLi);
+
     // Clear input field and refocus
     itemInput.value = "";
     itemInput.focus();
@@ -59,7 +64,7 @@ function addTask(newTask) {
 function removeTask(event) {
     // Get the parent <li> of the clicked button
     const taskItem = event.target.parentNode;
-    
+
     // Get the parent <ol> element
     const taskList = taskItem.parentNode;
 
