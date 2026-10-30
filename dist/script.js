@@ -39,18 +39,21 @@ function addTask(newTask) {
     // Set new <li> element html
     newLi.innerHTML = `<span class="task-text">${newTask}</span><button class="done-btn">✖</button>`;
 
-    // Append the new <li> to the <ul>
-    itemList.appendChild(newLi);
+    // Create done button
+    const doneButton = document.createElement('button');
+    doneButton.className = 'done-btn';
+    doneButton.textContent = '✖';
+
+    // Attach Task Removal Button
+    doneButton.addEventListener('click', removeTask);
+
+    // Append elements to the <li>
+    newLi.appendChild(taskSpan);
+    newLi.appendChild(doneButton);
 
     // Clear input field and refocus
     itemInput.value = "";
     itemInput.focus();
-
-    // Attach Task Removal Button
-    const doneButton = document.createElement('button');
-    doneButton.className = 'done-btn';
-    doneButton.textContent = '✖';
-    doneButton.addEventListener('click', removeTask);
 }
 
 function removeTask(event) {
@@ -63,3 +66,5 @@ function removeTask(event) {
     // Remove the <li> from the <ol>
     taskList.removeChild(taskItem);
 }
+
+document.addEventListener('DOMContentLoaded', domLoaded);
